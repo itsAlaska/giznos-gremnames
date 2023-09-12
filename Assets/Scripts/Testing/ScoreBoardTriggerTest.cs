@@ -9,6 +9,8 @@ namespace Testing
 {
     public class ScoreBoardTriggerTest : UdonSharpBehaviour
     {
+        public VRCPlayerApi Owner;
+        
         // Unity objects
         [SerializeField] private Transform[] rows;
 
@@ -32,11 +34,18 @@ namespace Testing
 
         public override void OnPlayerTriggerEnter(VRCPlayerApi player)
         {
-            Debug.Log(rows[0]);
-            rows[0].GetChild(0).GetChild(2).GetComponent<Text>().text = "1";
-            rows[0].GetChild(1).GetChild(2).GetComponent<Text>().text = player.displayName;
-            rows[0].GetChild(2).GetChild(2).GetComponent<Text>().text = "0";
+            if (Owner == null)
+            {
+                Owner = player;
+                Networking.SetOwner(Owner, gameObject);
+            }
+            else if (Owner == player)
+            {
+                
+            }
         }
+        
+        
     }
 }
 
