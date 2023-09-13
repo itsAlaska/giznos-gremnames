@@ -12,18 +12,41 @@ public class JoinButton : UdonSharpBehaviour
     private GameObject textComponent;
     [SerializeField]
     private GamemasterGizno gameManager;
+    [UdonSynced]
+    public int lastClickedId = 0;
+
+    public double buttonDelay = 3;
+    private double _buttonCounter = 0;
     
 
-    void Interact()
+    public override void Interact()
     {
-        //if (interactable == true)
-        //{
+        if (interactable == true)
+        {
             interactable = false;
-            gameManager.lastClickedId = Networking.LocalPlayer.playerId;
-            gameManager.SendCustomNetworkEvent(VRC.Udon.Common.Interfaces.NetworkEventTarget.Owner, "AddNewPlayer");
-            
-            //gameManager.SendCustomEvent(nameof(gameManager.AddNewPlayer));
-        //}
+            DisableInteractive = true; ;
+            Networking.SetOwner(Networking.LocalPlayer, gameObject);
+            lastClickedId = Networking.LocalPlayer.playerId;
+            RequestSerialization();
+            gameManager.SendCustomNetworkEvent(VRC.Udon.Common.Interfaces.NetworkEventTarget.All, "AddNewPlayer");
+        }
+    }
 
+    public void Update()
+    {
+        if(interactable == false)
+        {
+            if(_buttonCounter >= buttonDelay)
+            {
+                interactable = true;
+                DisableInteractive = false;
+                _buttonCounter = 0;
+            }
+            else
+            {
+                _buttonCounter += Time.deltaTime;
+            }
+        }
     }
 }
+

@@ -20,21 +20,27 @@ namespace GremnamesPlayer
         public VRCPlayerApi LocalPlayer;
         //private override void OnOwnershipTransferred()
         //{
-            //Debug.Log("AHM WAID AWEK");
-            //if (Networking.LocalPlayer.playerId != GetComponentInParent<GamemasterGizno>().lastClickedId)
-           // {
-            //    return;
-            //}
-            //LocalPlayer = Networking.LocalPlayer;
-            //Debug.Log(LocalPlayer.displayName);
-            //playerName = LocalPlayer.displayName;
-            //score = 0;
-            //SendCustomNetworkEvent(VRC.Udon.Common.Interfaces.NetworkEventTarget.All, nameof(GamemasterGizno.UpdateList));
+        //Debug.Log("AHM WAID AWEK");
+        //if (Networking.LocalPlayer.playerId != GetComponentInParent<GamemasterGizno>().lastClickedId)
+        // {
+        //    return;
         //}
+        //LocalPlayer = Networking.LocalPlayer;
+        //Debug.Log(LocalPlayer.displayName);
+        //playerName = LocalPlayer.displayName;
+        //score = 0;
+        //SendCustomNetworkEvent(VRC.Udon.Common.Interfaces.NetworkEventTarget.All, nameof(GamemasterGizno.UpdateList));
+        //}
+        public override void OnOwnershipTransferred(VRCPlayerApi player)
+        {
+            if(Networking.LocalPlayer != player){return;}
+
+        }
 
         private void OnDisable()
         {
             LocalPlayer = null;
         }
+
     }
 }

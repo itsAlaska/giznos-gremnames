@@ -225,7 +225,7 @@ MonoBehaviour:
   SynchronizePosition: 0
   AllowCollisionOwnershipTransfer: 0
   Reliable: 0
-  _syncMethod: 2
+  _syncMethod: 3
   serializedProgramAsset: {fileID: 11400000, guid: a30361e90a12e1e4aa324b51f44a5e5b,
     type: 2}
   programSource: {fileID: 11400000, guid: a8ce53bb82d58b242aec901f1a1260f8, type: 2}
@@ -258,7 +258,9 @@ MonoBehaviour:
     _values: []
   playerListText: {fileID: 1554116536}
   playerPool: {fileID: 823851302}
-  lastClickedId: 0
+  joinButton: {fileID: 1128162562}
+  boardText: 
+  initialSync: 1
 --- !u!4 &38823333
 Transform:
   m_ObjectHideFlags: 0
@@ -9021,7 +9023,7 @@ MonoBehaviour:
   SynchronizePosition: 0
   AllowCollisionOwnershipTransfer: 0
   Reliable: 0
-  _syncMethod: 2
+  _syncMethod: 3
   serializedProgramAsset: {fileID: 11400000, guid: c0ea927dfeecc4948a5bcc760d3dc801,
     type: 2}
   programSource: {fileID: 11400000, guid: 2a387fb6d09fe3e4095ed8e3b1acf002, type: 2}
@@ -9052,6 +9054,8 @@ MonoBehaviour:
   _udonSharpBackingUdonBehaviour: {fileID: 1128162561}
   textComponent: {fileID: 1485200300}
   gameManager: {fileID: 38823332}
+  lastClickedId: 0
+  buttonDelay: 3
 --- !u!1001 &1134286469
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9512,6 +9516,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -6865251004137620711, guid: 50af1ba7d9101984488ef7cd94a7aad5,
         type: 3}
+      propertyPath: joinButton
+      value: 
+      objectReference: {fileID: 1128162562}
+    - target: {fileID: -6865251004137620711, guid: 50af1ba7d9101984488ef7cd94a7aad5,
+        type: 3}
       propertyPath: GamemasterGizno
       value: 
       objectReference: {fileID: 38823332}
@@ -9521,6 +9530,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: -6865251004137620711, guid: 50af1ba7d9101984488ef7cd94a7aad5,
         type: 3}
+    - target: {fileID: -3290892350913632102, guid: 50af1ba7d9101984488ef7cd94a7aad5,
+        type: 3}
+      propertyPath: _syncMethod
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 6040277089664028036, guid: 50af1ba7d9101984488ef7cd94a7aad5,
         type: 3}
       propertyPath: m_Name

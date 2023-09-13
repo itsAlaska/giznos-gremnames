@@ -10,6 +10,8 @@ public class PlayerPool : UdonSharpBehaviour
 {
     public GamemasterGizno GamemasterGizno;
     public VRCObjectPool playerPool;
+    [SerializeField]
+    public JoinButton joinButton;
 
     void Start()
     {
@@ -18,8 +20,8 @@ public class PlayerPool : UdonSharpBehaviour
 
     public void AddPooledPlayer()
     {
-        Debug.Log("Add player called");
-        VRCPlayerApi newPlayer = VRCPlayerApi.GetPlayerById(GamemasterGizno.lastClickedId);
+        if (!Networking.LocalPlayer.isMaster) { return; }
+        VRCPlayerApi newPlayer = VRCPlayerApi.GetPlayerById(joinButton.lastClickedId);
 
         for (int i = 0; i < playerPool.Pool.Length; i++)
         {
@@ -27,15 +29,15 @@ public class PlayerPool : UdonSharpBehaviour
             {
                 Debug.Log($"Found slot at index{i}");
                 playerPool.Pool[i].SetActive(true);
-                Networking.SetOwner(newPlayer, playerPool.Pool[i]);
-                Debug.Log($"Setting {newPlayer.displayName} as owner");
                 playerPool.Pool[i].GetComponent<Player>().LocalPlayer = newPlayer;
-                Debug.Log($"Set {playerPool.Pool[i].GetComponent<Player>().LocalPlayer} as player.localplayer");
-
+                playerPool.Pool[i].GetComponent<Player>().poolIndex = i;
+                playerPool.Pool[i].GetComponent<Player>().playerName = newPlayer.displayName;
+                Networking.SetOwner(newPlayer, playerPool.Pool[i]);
+                RequestSerialization();
                 break;
             } 
         }
-        Debug.Log("Rendering list");
+        //GamemasterGizno.SendCustomEvent(nameof(GamemasterGizno.UpdateList));
         GamemasterGizno.SendCustomNetworkEvent(VRC.Udon.Common.Interfaces.NetworkEventTarget.All, "UpdateList");
     }
 }
