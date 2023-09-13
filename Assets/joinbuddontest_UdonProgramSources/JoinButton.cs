@@ -1,4 +1,5 @@
 ﻿
+using TMPro;
 using UdonSharp;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,8 +9,9 @@ using VRC.Udon;
 public class JoinButton : UdonSharpBehaviour
 {
     private bool interactable = true;
+    private bool joined = false;
     [SerializeField]
-    private GameObject textComponent;
+    private TextMeshProUGUI buttonText;
     [SerializeField]
     private GamemasterGizno gameManager;
     [UdonSynced]
@@ -28,7 +30,17 @@ public class JoinButton : UdonSharpBehaviour
             Networking.SetOwner(Networking.LocalPlayer, gameObject);
             lastClickedId = Networking.LocalPlayer.playerId;
             RequestSerialization();
-            gameManager.SendCustomNetworkEvent(VRC.Udon.Common.Interfaces.NetworkEventTarget.All, "AddNewPlayer");
+            if(joined == false) {
+                gameManager.SendCustomNetworkEvent(VRC.Udon.Common.Interfaces.NetworkEventTarget.All, "AddNewPlayer");
+                buttonText.text = "Leave Game";
+                joined = true;
+            }
+            else
+            {
+                gameManager.SendCustomNetworkEvent(VRC.Udon.Common.Interfaces.NetworkEventTarget.All, "RemovePlayer");
+                buttonText.text = "Join Game";
+                joined = false;
+            }
         }
     }
 

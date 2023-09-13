@@ -9052,7 +9052,7 @@ MonoBehaviour:
     PrefabModifications: []
     SerializationNodes: []
   _udonSharpBackingUdonBehaviour: {fileID: 1128162561}
-  textComponent: {fileID: 1485200300}
+  buttonText: {fileID: 1485200301}
   gameManager: {fileID: 38823332}
   lastClickedId: 0
   buttonDelay: 3
@@ -10044,12 +10044,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 70b0e01da2f4d08488b49bc04cd38252, type: 3}
---- !u!1 &1485200300 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8640849467795764914, guid: b3c968e9be9a82f4fb213d7db6ee17c2,
+--- !u!114 &1485200301 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8640849467795764912, guid: b3c968e9be9a82f4fb213d7db6ee17c2,
     type: 3}
   m_PrefabInstance: {fileID: 1195130145}
   m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1493398050 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8768291336022769634, guid: 70b0e01da2f4d08488b49bc04cd38252,

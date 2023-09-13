@@ -52,6 +52,7 @@ public class GamemasterGizno : UdonSharpBehaviour
 
     public void AddNewPlayer()
     {
+        //TODO: Maybe make incoming ids add to a queue and process them in update?
         Debug.Log(joinButton.lastClickedId);
         if (!Networking.LocalPlayer.isMaster) { return; }
         VRCPlayerApi newPlayer = VRCPlayerApi.GetPlayerById(joinButton.lastClickedId);
@@ -61,6 +62,13 @@ public class GamemasterGizno : UdonSharpBehaviour
         playerOrder.Add(name);
         playerPool.GetComponent<PlayerPool>().AddPooledPlayer();
     }
+
+    public void RemovePlayer()
+    {
+        
+        playerPool.GetComponent<PlayerPool>().RemovePooledPlayer();
+    }
+
     public void UpdateList()
     {
         if (Networking.LocalPlayer.isMaster == true) {

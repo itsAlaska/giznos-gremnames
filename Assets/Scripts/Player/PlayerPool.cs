@@ -40,4 +40,27 @@ public class PlayerPool : UdonSharpBehaviour
         //GamemasterGizno.SendCustomEvent(nameof(GamemasterGizno.UpdateList));
         GamemasterGizno.SendCustomNetworkEvent(VRC.Udon.Common.Interfaces.NetworkEventTarget.All, "UpdateList");
     }
+
+    public void RemovePooledPlayer()
+    {
+        if (!Networking.LocalPlayer.isMaster) { return; }
+        VRCPlayerApi removedPlayer = VRCPlayerApi.GetPlayerById(joinButton.lastClickedId);
+    
+        for (int i = 0; i < playerPool.Pool.Length; i++)
+        {
+            Player player = playerPool.Pool[i].GetComponent<Player>();
+         if(playerPool.Pool[i].activeSelf == true && player.LocalPlayer.playerId == joinButton.lastClickedId)
+            {
+                Debug.Log($"Found slot at index{i}");
+                playerPool.Pool[i].SetActive(false);
+                player.LocalPlayer = null;
+                player.playerName = "";
+                //Networking.SetOwner(newPlayer, playerPool.Pool[i]);
+                RequestSerialization();
+                break;
+            } 
+        }
+        //GamemasterGizno.SendCustomEvent(nameof(GamemasterGizno.UpdateList));
+        GamemasterGizno.SendCustomNetworkEvent(VRC.Udon.Common.Interfaces.NetworkEventTarget.All, "UpdateList");
+    }
 }
