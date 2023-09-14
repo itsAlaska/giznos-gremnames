@@ -21,8 +21,8 @@ namespace Cards
 
         public override void OnStringLoadSuccess(IVRCStringDownload result)
         {
-            if (card.words.Length > 0) return;
-            card.words = result.Result.Split(new string[] { "\r", "\n" }, StringSplitOptions.RemoveEmptyEntries);
+            if (card.Words.Length > 0) return;
+            card.Words = result.Result.Split(new string[] { "\r", "\n" }, StringSplitOptions.RemoveEmptyEntries);
             card.PickWord();
         }
 

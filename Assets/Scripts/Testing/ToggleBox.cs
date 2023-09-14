@@ -1,6 +1,7 @@
 ﻿using Cards;
 using UdonSharp;
 using UnityEngine;
+using VRC.SDKBase;
 
 namespace Testing
 {
@@ -12,6 +13,11 @@ namespace Testing
         
         private void Interact()
         {
+            var currentCardOwner = Networking.GetOwner(card.gameObject);
+            var localPlayer = Networking.LocalPlayer;
+            
+            if(localPlayer != currentCardOwner) Networking.SetOwner(localPlayer, card.gameObject);
+            
             if (card.words.Length > 0)
             {
                 card.PickWord();
