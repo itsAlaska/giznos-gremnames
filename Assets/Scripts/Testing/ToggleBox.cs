@@ -9,18 +9,18 @@ namespace Testing
     public class ToggleBox : UdonSharpBehaviour
     {
         [SerializeField] private WordList wordList;
-        [SerializeField] private Card card;
+        [SerializeField] private CardMatrix cardMatrix;
         
         private void Interact()
         {
-            var currentCardOwner = Networking.GetOwner(card.gameObject);
+            var currentCardMatrixOwner = Networking.GetOwner(cardMatrix.gameObject);
             var localPlayer = Networking.LocalPlayer;
             
-            if(localPlayer != currentCardOwner) Networking.SetOwner(localPlayer, card.gameObject);
+            if(localPlayer != currentCardMatrixOwner) Networking.SetOwner(localPlayer, cardMatrix.gameObject);
             
-            if (card.words.Length > 0)
+            if (cardMatrix.AllWords.Length > 0)
             {
-                card.PickWord();
+                cardMatrix.PopulateWordList();
             }
             else
             {

@@ -11,7 +11,7 @@ namespace Cards
     {
         public VRCUrl wordListUrl;
         public float reloadDelay = 60;
-        public Card card;
+        public CardMatrix cardMatrix;
         
         public void _DownloadList()
         {
@@ -21,9 +21,9 @@ namespace Cards
 
         public override void OnStringLoadSuccess(IVRCStringDownload result)
         {
-            if (card.Words.Length > 0) return;
-            card.Words = result.Result.Split(new string[] { "\r", "\n" }, StringSplitOptions.RemoveEmptyEntries);
-            card.PickWord();
+            if (cardMatrix.AllWords.Length > 0) return;
+            cardMatrix.AllWords = result.Result.Split(new string[] { "\r", "\n" }, StringSplitOptions.RemoveEmptyEntries);
+            cardMatrix.PopulateWordList();
         }
 
         public override void OnStringLoadError(IVRCStringDownload result)
