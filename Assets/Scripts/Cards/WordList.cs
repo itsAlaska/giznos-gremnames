@@ -1,13 +1,34 @@
-﻿
+﻿using System;
 using UdonSharp;
 using UnityEngine;
+using VRC.SDK3.StringLoading;
 using VRC.SDKBase;
-using VRC.Udon;
+using VRC.Udon.Common.Interfaces;
 
-public class WordList : UdonSharpBehaviour
+namespace Cards
 {
-    void Start()
+    public class WordList : UdonSharpBehaviour
     {
+        public VRCUrl wordListUrl;
+        public float reloadDelay = 60;
+        public Card card;
         
+        public void _DownloadList()
+        {
+            VRCStringDownloader.LoadUrl(wordListUrl, (IUdonEventReceiver)this);
+            SendCustomEventDelayedSeconds(nameof(_DownloadList), reloadDelay);
+        }
+
+        public override void OnStringLoadSuccess(IVRCStringDownload result)
+        {
+            if (card.words.Length > 0) return;
+            card.words = result.Result.Split(new string[] { "\r", "\n" }, StringSplitOptions.RemoveEmptyEntries);
+            card.PickWord();
+        }
+
+        public override void OnStringLoadError(IVRCStringDownload result)
+        {
+            Debug.Log(result.Error);   
+        }
     }
 }

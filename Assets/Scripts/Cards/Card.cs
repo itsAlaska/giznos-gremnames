@@ -20,13 +20,12 @@ namespace Cards
             Debug.Log($"The wordListIndex value is {wordListIndex}");
             word = words[wordListIndex];
             wordField.text = word;
-
         }
 
-        // public void UpdateCardDisplay(string currentWord)
-        // {
-        //     wordField.text = currentWord;
-        // }
+        public void UpdateCardDisplay(string currentWord)
+        {
+            wordField.text = currentWord;
+        }
 
         // public string Word
         // {

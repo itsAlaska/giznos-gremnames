@@ -7,7 +7,7 @@ namespace Testing
     
     public class ToggleBox : UdonSharpBehaviour
     {
-        // [SerializeField] private WordList wordList;
+        [SerializeField] private WordList wordList;
         [SerializeField] private Card card;
         
         private void Interact()
@@ -18,7 +18,7 @@ namespace Testing
             }
             else
             {
-                // wordList._DownloadList();
+                wordList._DownloadList();
             }
             
         }
