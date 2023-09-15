@@ -18,7 +18,7 @@ namespace Testing
             
             if(localPlayer != currentCardMatrixOwner) Networking.SetOwner(localPlayer, cardMatrix.gameObject);
             
-            if (cardMatrix.AllWords.Length > 0)
+            if (cardMatrix.allWords.Length > 0)
             {
                 cardMatrix.PopulateWordList();
             }

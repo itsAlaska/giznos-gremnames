@@ -10,11 +10,16 @@ namespace Cards
         // [SerializeField] private GameObject[] cards;
         [SerializeField] private TextMeshProUGUI[] wordFields = new TextMeshProUGUI[16];
 
-        [UdonSynced, FieldChangeCallback(nameof(AllWords))]
+        
         public string[] allWords;
 
         [UdonSynced, FieldChangeCallback(nameof(ThisRoundWords))]
         public string[] thisRoundWords = new string[16];
+
+        public override void OnDeserialization()
+        {
+            UpdateCards();
+        }
 
         public void PopulateWordList()
         {
@@ -23,7 +28,7 @@ namespace Cards
             
             for (var i = 0; i < 16; i++)
             {
-                int wordIndex = Random.Range(0, AllWords.Length);
+                int wordIndex = Random.Range(0, allWords.Length);
 
                 if (i > 0)
                 {
@@ -33,7 +38,7 @@ namespace Cards
                         {
                             while (wordIndices[j] == wordIndex)
                             {
-                                wordIndex = Random.Range(0, AllWords.Length);
+                                wordIndex = Random.Range(0, allWords.Length);
                             }
                         }
                     }
@@ -44,32 +49,37 @@ namespace Cards
 
             for (int g = 0; g < wordIndices.Length; g++)
             {
-                wordsArrayForThisRound[g] = AllWords[wordIndices[g]];
+                wordsArrayForThisRound[g] = allWords[wordIndices[g]];
             }
 
             ThisRoundWords = wordsArrayForThisRound;
             RequestSerialization();
         }
-        
-        public string[] AllWords
+
+        public void UpdateCards()
         {
-            set
+            for (var i = 0; i < wordFields.Length; i++)
             {
-                allWords = value;
-                RequestSerialization();
+                wordFields[i].text = ThisRoundWords[i];
             }
-            get => allWords;
         }
+        
+        // public string[] AllWords
+        // {
+        //     set
+        //     {
+        //         allWords = value;
+        //         RequestSerialization();
+        //     }
+        //     get => allWords;
+        // }
 
         public string[] ThisRoundWords
         {
             set
             {
                 thisRoundWords = value;
-                for (int i = 0; i < wordFields.Length; i++)
-                {
-                    wordFields[i].text = ThisRoundWords[i];
-                }
+                UpdateCards();
             }
             get => thisRoundWords;
         }
